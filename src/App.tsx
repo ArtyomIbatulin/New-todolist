@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-import { Todolist } from "./Todolist";
+import { TaskType, Todolist } from "./Todolist";
 import { v1 } from "uuid";
 import { AddItemForm } from "./AddItemForm";
 
@@ -12,6 +12,10 @@ type TodolistType = {
   filter: FilterTypeValues;
 };
 
+type TasksStateType = {
+  [key: string]: Array<TaskType>;
+};
+
 function App() {
   let todolistId1 = v1();
   let todolistId2 = v1();
@@ -21,7 +25,7 @@ function App() {
     { id: todolistId2, title: "What to byu", filter: "all" },
   ]);
 
-  const [tasksObj, setTasks] = useState({
+  const [tasksObj, setTasks] = useState<TasksStateType>({
     [todolistId1]: [
       {
         id: v1(),
