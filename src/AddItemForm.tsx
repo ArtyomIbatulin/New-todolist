@@ -1,22 +1,21 @@
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 
 type AddItemFormProps = {
-  addTask: (title: string, todolistId: string) => void;
-  id: string;
+  addItem: (title: string) => void;
 };
 
 export const AddItemForm = (props: AddItemFormProps) => {
-  const [titleTask, setTitleTask] = useState("");
+  const [title, setTitle] = useState("");
   const [error, setError] = useState<string | null>(null);
 
   const onTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitleTask(e.currentTarget.value);
+    setTitle(e.currentTarget.value);
   };
 
   const addTask = () => {
-    if (titleTask !== "") {
-      props.addTask(titleTask.trim(), props.id);
-      setTitleTask("");
+    if (title !== "") {
+      props.addItem(title.trim());
+      setTitle("");
     } else {
       setError("Title is required");
     }
@@ -33,7 +32,7 @@ export const AddItemForm = (props: AddItemFormProps) => {
   return (
     <div>
       <input
-        value={titleTask}
+        value={title}
         onChange={onTitleChangeHandler}
         onKeyUp={onKeyUpHandler}
         className={error ? "error" : ""}
