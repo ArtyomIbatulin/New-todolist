@@ -66,3 +66,38 @@ export const todolistsReducer = (
       throw new Error("I dont understand this action type");
   }
 };
+
+export const removeTodolistAC = (id: string): RemoveTodolistActionType => {
+  return {
+    type: "REMOVE-TODOLIST",
+    id: id,
+  };
+};
+export const addTodolistAC = (title: string): AddTodolistActionType => {
+  return {
+    type: "ADD-TODOLIST",
+    title: title,
+  };
+};
+
+export const changeTodolistTitleAC = (
+  id: string,
+  title: string
+): ChangeTodolistTitleActionType => {
+  return {
+    type: "CHANGE-TODOLIST-TITLE",
+    id: id,
+    title: title,
+  };
+};
+
+export const changeTodolistFilterAC = (
+  id: string,
+  filter: FilterTypeValues
+): ChangeTodolistFilterActionType => {
+  return {
+    type: "CHANGE-TODOLIST-FILTER",
+    id: id,
+    filter: filter,
+  };
+};
