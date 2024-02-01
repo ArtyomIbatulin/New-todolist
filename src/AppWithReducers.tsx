@@ -4,7 +4,13 @@ import { TaskType, Todolist } from "./Todolist";
 import { v1 } from "uuid";
 import { AddItemForm } from "./AddItemForm";
 import { todolistsReducer } from "./state/todolists-reducer";
-import { tasksReducer } from "./state/tasks-reducer";
+import {
+  addTaskAC,
+  changeTaskStatusAC,
+  changeTaskTitleAC,
+  removeTaskAC,
+  tasksReducer,
+} from "./state/tasks-reducer";
 
 export type FilterTypeValues = "all" | "completed" | "active";
 
@@ -76,36 +82,38 @@ function AppWithReducers() {
   });
 
   function removeTask(id: string, todolistId: string) {
-    let tasks = tasksObj[todolistId].filter((t) => t.id !== id);
-    tasksObj[todolistId] = tasks;
-
-    setTasks({ ...tasksObj });
+    dispatchToTasksReducer(removeTaskAC(id, todolistId));
+    // let tasks = tasksObj[todolistId].filter((t) => t.id !== id);
+    // tasksObj[todolistId] = tasks;
+    // setTasks({ ...tasksObj });
   }
 
   function addTask(title: string, todolistId: string) {
-    let newTask = { id: v1(), title: title, isDone: false };
-    let tasks = tasksObj[todolistId];
-    tasksObj[todolistId] = [newTask, ...tasks];
-
-    setTasks({ ...tasksObj });
+    dispatchToTasksReducer(addTaskAC(title, todolistId));
+    // let newTask = { id: v1(), title: title, isDone: false };
+    // let tasks = tasksObj[todolistId];
+    // tasksObj[todolistId] = [newTask, ...tasks];
+    // setTasks({ ...tasksObj });
   }
 
   function changeStatus(taskId: string, isDone: boolean, todolistId: string) {
-    let tasks = tasksObj[todolistId];
-    let task = tasks.find((t) => t.id === taskId);
-    if (task) {
-      task.isDone = isDone;
-      setTasks({ ...tasksObj });
-    }
+    dispatchToTasksReducer(changeTaskStatusAC(isDone, taskId, todolistId));
+    // let tasks = tasksObj[todolistId];
+    // let task = tasks.find((t) => t.id === taskId);
+    // if (task) {
+    //   task.isDone = isDone;
+    //   setTasks({ ...tasksObj });
+    // }
   }
 
   function changeTitle(taskId: string, newValue: string, todolistId: string) {
-    let tasks = tasksObj[todolistId];
-    let task = tasks.find((t) => t.id === taskId);
-    if (task) {
-      task.title = newValue;
-      setTasks({ ...tasksObj });
-    }
+    dispatchToTasksReducer(changeTaskTitleAC(newValue, taskId, todolistId));
+    // let tasks = tasksObj[todolistId];
+    // let task = tasks.find((t) => t.id === taskId);
+    // if (task) {
+    //   task.title = newValue;
+    //   setTasks({ ...tasksObj });
+    // }
   }
 
   function changeTodolistTitle(newValue: string, todolistId: string) {
