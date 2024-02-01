@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import "./App.css";
 import { TaskType, Todolist } from "./Todolist";
 import { v1 } from "uuid";
 import { AddItemForm } from "./AddItemForm";
+import { todolistsReducer } from "./state/todolists-reducer";
+import { tasksReducer } from "./state/tasks-reducer";
 
 export type FilterTypeValues = "all" | "completed" | "active";
 
@@ -20,12 +22,12 @@ function AppWithReducers() {
   let todolistId1 = v1();
   let todolistId2 = v1();
 
-  const [todolists, setTodolists] = useState<Array<TodolistType>>([
+  const [todolists, dispatchToTodolistsReducer] = useReducer(todolistsReducer, [
     { id: todolistId1, title: "What to learn", filter: "all" },
     { id: todolistId2, title: "What to byu", filter: "all" },
   ]);
 
-  const [tasksObj, setTasks] = useState<TasksStateType>({
+  const [tasksObj, dispatchToTasksReducer] = useReducer(tasksReducer, {
     [todolistId1]: [
       {
         id: v1(),
