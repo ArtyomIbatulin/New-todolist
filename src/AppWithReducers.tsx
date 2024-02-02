@@ -3,7 +3,12 @@ import "./App.css";
 import { TaskType, Todolist } from "./Todolist";
 import { v1 } from "uuid";
 import { AddItemForm } from "./AddItemForm";
-import { todolistsReducer } from "./state/todolists-reducer";
+import {
+  changeTodolistFilterAC,
+  changeTodolistTitleAC,
+  removeTodolistAC,
+  todolistsReducer,
+} from "./state/todolists-reducer";
 import {
   addTaskAC,
   changeTaskStatusAC,
@@ -117,24 +122,27 @@ function AppWithReducers() {
   }
 
   function changeTodolistTitle(newValue: string, todolistId: string) {
-    let todolist = todolists.find((tl) => tl.id === todolistId);
-    if (todolist) {
-      todolist.title = newValue;
-      setTodolists([...todolists]);
-    }
+    dispatchToTodolistsReducer(changeTodolistTitleAC(todolistId, newValue));
+    // let todolist = todolists.find((tl) => tl.id === todolistId);
+    // if (todolist) {
+    //   todolist.title = newValue;
+    //   setTodolists([...todolists]);
+    // }
   }
 
   function changeFilter(value: FilterTypeValues, todolistId: string) {
-    let todolist = todolists.find((tl) => tl.id === todolistId);
-    if (todolist) {
-      todolist.filter = value;
-      setTodolists([...todolists]);
-    }
+    dispatchToTodolistsReducer(changeTodolistFilterAC(todolistId, value));
+    // let todolist = todolists.find((tl) => tl.id === todolistId);
+    // if (todolist) {
+    //   todolist.filter = value;
+    //   setTodolists([...todolists]);
+    // }
   }
 
   function removeTodolist(todolistId: string) {
-    let filteredTodolist = todolists.filter((tl) => tl.id !== todolistId);
-    setTodolists(filteredTodolist);
+    dispatchToTodolistsReducer(removeTodolistAC(todolistId));
+    // let filteredTodolist = todolists.filter((tl) => tl.id !== todolistId);
+    // setTodolists(filteredTodolist);
 
     delete tasksObj[todolistId];
     setTasks({ ...tasksObj });
