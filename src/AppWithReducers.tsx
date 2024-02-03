@@ -4,6 +4,7 @@ import { TaskType, Todolist } from "./Todolist";
 import { v1 } from "uuid";
 import { AddItemForm } from "./AddItemForm";
 import {
+  addTodolistAC,
   changeTodolistFilterAC,
   changeTodolistTitleAC,
   removeTodolistAC,
@@ -143,23 +144,25 @@ function AppWithReducers() {
     dispatchToTodolistsReducer(removeTodolistAC(todolistId));
     // let filteredTodolist = todolists.filter((tl) => tl.id !== todolistId);
     // setTodolists(filteredTodolist);
-
-    delete tasksObj[todolistId];
-    setTasks({ ...tasksObj });
+    dispatchToTasksReducer(removeTodolistAC(todolistId));
+    // delete tasksObj[todolistId];
+    // setTasks({ ...tasksObj });
   }
 
   function addTodolist(title: string) {
-    let todolist: TodolistType = {
-      id: v1(),
-      filter: "all",
-      title: title,
-    };
+    // let todolist: TodolistType = {
+    //   id: v1(),
+    //   filter: "all",
+    //   title: title,
+    // };
 
-    setTodolists([todolist, ...todolists]);
-    setTasks({
-      ...tasksObj,
-      [todolist.id]: [],
-    });
+    dispatchToTodolistsReducer(addTodolistAC(title));
+    dispatchToTasksReducer(addTodolistAC(title));
+    // setTodolists([todolist, ...todolists]);
+    // setTasks({
+    //   ...tasksObj,
+    //   [todolist.id]: [],
+    // });
   }
 
   return (
