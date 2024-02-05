@@ -113,13 +113,12 @@ function AppWithReducers() {
 
   function removeTodolist(todolistId: string) {
     dispatchToTodolistsReducer(removeTodolistAC(todolistId));
-
     dispatchToTasksReducer(removeTodolistAC(todolistId));
   }
 
   function addTodolist(title: string) {
-    dispatchToTodolistsReducer(addTodolistAC(title));
     dispatchToTasksReducer(addTodolistAC(title));
+    dispatchToTodolistsReducer(addTodolistAC(title));
   }
 
   return (
@@ -127,14 +126,15 @@ function AppWithReducers() {
       <AddItemForm addItem={addTodolist} />
 
       {todolists.map((tl) => {
-        let tasksForTodoList = tasksObj[tl.id];
+        let allTodolistTasks = tasksObj[tl.id];
+        let tasksForTodoList = allTodolistTasks;
 
         if (tl.filter === "completed") {
-          tasksForTodoList = tasksForTodoList.filter((t) => t.isDone === true);
+          tasksForTodoList = allTodolistTasks.filter((t) => t.isDone === true);
         }
 
         if (tl.filter === "active") {
-          tasksForTodoList = tasksForTodoList.filter((t) => t.isDone === false);
+          tasksForTodoList = allTodolistTasks.filter((t) => t.isDone === false);
         }
 
         return (
