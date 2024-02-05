@@ -112,14 +112,15 @@ function AppWithReducers() {
   }
 
   function removeTodolist(todolistId: string) {
-    dispatchToTodolistsReducer(removeTodolistAC(todolistId));
-    dispatchToTasksReducer(removeTodolistAC(todolistId));
+    let action = removeTodolistAC(todolistId);
+    dispatchToTodolistsReducer(action);
+    dispatchToTasksReducer(action);
   }
 
   function addTodolist(title: string) {
-    debugger;
-    dispatchToTodolistsReducer(addTodolistAC(title));
-    dispatchToTasksReducer(addTodolistAC(title));
+    let action = addTodolistAC(title);
+    dispatchToTodolistsReducer(action);
+    dispatchToTasksReducer(action);
   }
 
   return (
