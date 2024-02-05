@@ -117,8 +117,9 @@ function AppWithReducers() {
   }
 
   function addTodolist(title: string) {
-    dispatchToTasksReducer(addTodolistAC(title));
+    debugger;
     dispatchToTodolistsReducer(addTodolistAC(title));
+    dispatchToTasksReducer(addTodolistAC(title));
   }
 
   return (

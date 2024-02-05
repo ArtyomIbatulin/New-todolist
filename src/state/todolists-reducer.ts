@@ -80,6 +80,7 @@ export const addTodolistAC = (title: string): AddTodolistActionType => {
     type: "ADD-TODOLIST",
     title,
     todolistId: v1(),
+    // два раза заходит и для тудулиста и его тасок производит разный id !!!
   };
 };
 

@@ -131,6 +131,7 @@ function App() {
   }
 
   function addTodolist(title: string) {
+    debugger;
     let todolist: TodolistType = {
       id: v1(),
       filter: "all",
