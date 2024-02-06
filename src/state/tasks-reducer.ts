@@ -3,6 +3,8 @@ import { TasksStateType } from "../App";
 import {
   AddTodolistActionType,
   RemoveTodolistActionType,
+  todolistId1,
+  todolistId2,
 } from "./todolists-reducer";
 
 type RemoveTaskActionType = {
@@ -39,8 +41,56 @@ type ActionsType =
   | AddTodolistActionType
   | RemoveTodolistActionType;
 
+const initialState: TasksStateType = {
+  [todolistId1]: [
+    {
+      id: v1(),
+      title: "HTML&CSS",
+      isDone: true,
+    },
+    {
+      id: v1(),
+      title: "JS",
+      isDone: true,
+    },
+    {
+      id: v1(),
+      title: "React",
+      isDone: false,
+    },
+    {
+      id: v1(),
+      title: "Redux",
+      isDone: false,
+    },
+  ],
+
+  [todolistId2]: [
+    {
+      id: v1(),
+      title: "Car",
+      isDone: true,
+    },
+    {
+      id: v1(),
+      title: "Ship",
+      isDone: true,
+    },
+    {
+      id: v1(),
+      title: "Plane",
+      isDone: false,
+    },
+    {
+      id: v1(),
+      title: "Train",
+      isDone: false,
+    },
+  ],
+};
+
 export const tasksReducer = (
-  state: TasksStateType,
+  state: TasksStateType = initialState,
   action: ActionsType
 ): TasksStateType => {
   switch (action.type) {
