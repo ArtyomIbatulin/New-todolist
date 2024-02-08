@@ -1,23 +1,21 @@
-import React, { useReducer } from "react";
 import "./App.css";
 import { TaskType, Todolist } from "./Todolist";
-import { v1 } from "uuid";
 import { AddItemForm } from "./AddItemForm";
 import {
   addTodolistAC,
   changeTodolistFilterAC,
   changeTodolistTitleAC,
   removeTodolistAC,
-  todolistsReducer,
 } from "./state/todolists-reducer";
 import {
   addTaskAC,
   changeTaskStatusAC,
   changeTaskTitleAC,
   removeTaskAC,
-  tasksReducer,
 } from "./state/tasks-reducer";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { AppRootState } from "./state/store";
 
 export type FilterTypeValues = "all" | "completed" | "active";
 
@@ -32,63 +30,14 @@ export type TasksStateType = {
 };
 
 function AppWithRedux() {
-  let todolistId1 = v1();
-  let todolistId2 = v1();
-
   const dispatch = useDispatch();
 
-  const [todolists] = useReducer(todolistsReducer, [
-    { id: todolistId1, title: "What to learn", filter: "all" },
-    { id: todolistId2, title: "What to byu", filter: "all" },
-  ]);
-
-  const [tasksObj] = useReducer(tasksReducer, {
-    [todolistId1]: [
-      {
-        id: v1(),
-        title: "HTML&CSS",
-        isDone: true,
-      },
-      {
-        id: v1(),
-        title: "JS",
-        isDone: true,
-      },
-      {
-        id: v1(),
-        title: "React",
-        isDone: false,
-      },
-      {
-        id: v1(),
-        title: "Redux",
-        isDone: false,
-      },
-    ],
-
-    [todolistId2]: [
-      {
-        id: v1(),
-        title: "Car",
-        isDone: true,
-      },
-      {
-        id: v1(),
-        title: "Ship",
-        isDone: true,
-      },
-      {
-        id: v1(),
-        title: "Plane",
-        isDone: false,
-      },
-      {
-        id: v1(),
-        title: "Train",
-        isDone: false,
-      },
-    ],
-  });
+  const todolists = useSelector<AppRootState, Array<TodolistType>>(
+    (state) => state.todolists
+  );
+  const tasks = useSelector<AppRootState, TasksStateType>(
+    (state) => state.tasks
+  );
 
   function removeTask(id: string, todolistId: string) {
     dispatch(removeTaskAC(id, todolistId));
@@ -129,7 +78,7 @@ function AppWithRedux() {
       <AddItemForm addItem={addTodolist} />
 
       {todolists.map((tl) => {
-        let allTodolistTasks = tasksObj[tl.id];
+        let allTodolistTasks = tasks[tl.id];
         let tasksForTodoList = allTodolistTasks;
 
         if (tl.filter === "completed") {
