@@ -5,6 +5,7 @@ type AddItemFormProps = {
 };
 
 export const AddItemForm = (props: AddItemFormProps) => {
+  console.log("AddItemForm");
   const [title, setTitle] = useState("");
   const [error, setError] = useState<string | null>(null);
 
@@ -22,7 +23,9 @@ export const AddItemForm = (props: AddItemFormProps) => {
   };
 
   const onKeyUpHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    setError(null);
+    if (error !== null) {
+      setError(null);
+    }
 
     if (e.keyCode === 13) {
       addTask();
