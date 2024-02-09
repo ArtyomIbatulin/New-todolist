@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import AppWithRedux from "./AppWithRedux";
@@ -18,3 +17,10 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+// imports
+// clgs
+// error
+// useCallback, React.memo
+// fix reducers - copy arrays, objects in the task titles, filters
+// EditableSpan

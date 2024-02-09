@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from "react";
-import { FilterTypeValues } from "./App";
+import { FilterTypeValues } from "./AppWithRedux";
 import { AddItemForm } from "./AddItemForm";
 import { EditableSpan } from "./EditableSpan";
 
