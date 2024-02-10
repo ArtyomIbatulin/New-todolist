@@ -18,9 +18,6 @@ root.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
-// imports r
-// clgs r
-// error r
 // useCallback, React.memo
 // fix reducers - copy arrays, objects in the task titles, filters
 // EditableSpan

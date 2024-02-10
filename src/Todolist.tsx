@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useCallback } from "react";
 import { FilterTypeValues } from "./AppWithRedux";
 import { AddItemForm } from "./AddItemForm";
 import { EditableSpan } from "./EditableSpan";
@@ -37,17 +37,17 @@ export const Todolist = (props: PropsType) => {
     props.removeTodolist(props.id);
   };
 
-  const onChangeFilterAllHandler = () => {
+  const onChangeFilterAllHandler = useCallback(() => {
     props.changeFilter("all", props.id);
-  };
+  }, [props.changeFilter, props.id]);
 
-  const onChangeFilterActiveHandler = () => {
+  const onChangeFilterActiveHandler = useCallback(() => {
     props.changeFilter("active", props.id);
-  };
+  }, [props.changeFilter, props.id]);
 
-  const onChangeFilterCompletedHandler = () => {
+  const onChangeFilterCompletedHandler = useCallback(() => {
     props.changeFilter("completed", props.id);
-  };
+  }, [props.changeFilter, props.id]);
 
   return (
     <div>
