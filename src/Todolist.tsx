@@ -23,7 +23,7 @@ type PropsType = {
   removeTodolist: (todolistId: string) => void;
 };
 
-export const Todolist = (props: PropsType) => {
+export const Todolist = React.memo((props: PropsType) => {
   console.log("Todolist");
   const addTask = (title: string) => {
     props.addTask(title, props.id);
@@ -103,4 +103,4 @@ export const Todolist = (props: PropsType) => {
       </div>
     </div>
   );
-};
+});

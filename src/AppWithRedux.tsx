@@ -16,7 +16,7 @@ import {
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { AppRootState } from "./state/store";
-import { useCallback } from "react";
+import React, { useCallback } from "react";
 
 export type FilterTypeValues = "all" | "completed" | "active";
 
@@ -30,7 +30,7 @@ export type TasksStateType = {
   [key: string]: Array<TaskType>;
 };
 
-function AppWithRedux() {
+const AppWithRedux = React.memo(() => {
   console.log("App");
   const dispatch = useDispatch();
 
@@ -134,6 +134,6 @@ function AppWithRedux() {
       })}
     </div>
   );
-}
+});
 
 export default AppWithRedux;
