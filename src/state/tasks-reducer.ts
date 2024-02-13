@@ -124,6 +124,8 @@ export const tasksReducer = (
         task.isDone = action.isDone;
       }
 
+      stateCopy[action.todolistId] = [...tasks];
+
       return stateCopy;
     }
 
@@ -135,6 +137,8 @@ export const tasksReducer = (
       if (task) {
         task.title = action.title;
       }
+
+      stateCopy[action.todolistId] = [...tasks];
 
       return stateCopy;
     }
