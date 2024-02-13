@@ -107,14 +107,6 @@ const AppWithRedux = React.memo(() => {
         let allTodolistTasks = tasks[tl.id];
         let tasksForTodoList = allTodolistTasks;
 
-        if (tl.filter === "completed") {
-          tasksForTodoList = allTodolistTasks.filter((t) => t.isDone === true);
-        }
-
-        if (tl.filter === "active") {
-          tasksForTodoList = allTodolistTasks.filter((t) => t.isDone === false);
-        }
-
         return (
           <Todolist
             key={tl.id}

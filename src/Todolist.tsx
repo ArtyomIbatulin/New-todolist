@@ -13,21 +13,24 @@ type PropsType = {
   id: string;
   title: string;
   tasks: TaskType[];
+  filter: FilterTypeValues;
   removeTask: (id: string, todolistId: string) => void;
   changeFilter: (value: FilterTypeValues, todolistId: string) => void;
   changeTodolistTitle: (newValue: string, todolistId: string) => void;
   addTask: (title: string, id: string) => void;
   changeStatus: (taskId: string, isDone: boolean, todolistId: string) => void;
   changeTitle: (taskId: string, newValue: string, todolistId: string) => void;
-  filter: FilterTypeValues;
   removeTodolist: (todolistId: string) => void;
 };
 
 export const Todolist = React.memo((props: PropsType) => {
   console.log("Todolist");
-  const addTask = useCallback((title: string) => {
-    props.addTask(title, props.id);
-  }, []);
+  const addTask = useCallback(
+    (title: string) => {
+      props.addTask(title, props.id);
+    },
+    [props.addTask, props.id]
+  );
 
   const changeTodolistTitle = (newValue: string) => {
     props.changeTodolistTitle(newValue, props.id);
@@ -49,6 +52,16 @@ export const Todolist = React.memo((props: PropsType) => {
     props.changeFilter("completed", props.id);
   }, [props.changeFilter, props.id]);
 
+  let tasksForTodoList = props.tasks;
+
+  if (props.filter === "completed") {
+    tasksForTodoList = props.tasks.filter((t) => t.isDone === true);
+  }
+
+  if (props.filter === "active") {
+    tasksForTodoList = props.tasks.filter((t) => t.isDone === false);
+  }
+
   return (
     <div>
       <h3>
@@ -59,7 +72,7 @@ export const Todolist = React.memo((props: PropsType) => {
       <AddItemForm addItem={addTask} />
 
       <ul>
-        {props.tasks.map((t) => {
+        {tasksForTodoList.map((t) => {
           const removeTask = () => props.removeTask(t.id, props.id);
           const onChangeCheckHandler = (e: ChangeEvent<HTMLInputElement>) => {
             props.changeStatus(t.id, e.currentTarget.checked, props.id);
