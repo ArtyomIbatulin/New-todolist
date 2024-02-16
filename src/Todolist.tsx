@@ -29,7 +29,7 @@ export const Todolist = React.memo((props: PropsType) => {
     (title: string) => {
       props.addTask(title, props.id);
     },
-    [props.addTask, props.id]
+    [props]
   );
 
   const changeTodolistTitle = (newValue: string) => {
@@ -42,15 +42,15 @@ export const Todolist = React.memo((props: PropsType) => {
 
   const onChangeFilterAllHandler = useCallback(() => {
     props.changeFilter("all", props.id);
-  }, [props.changeFilter, props.id]);
+  }, [props]);
 
   const onChangeFilterActiveHandler = useCallback(() => {
     props.changeFilter("active", props.id);
-  }, [props.changeFilter, props.id]);
+  }, [props]);
 
   const onChangeFilterCompletedHandler = useCallback(() => {
     props.changeFilter("completed", props.id);
-  }, [props.changeFilter, props.id]);
+  }, [props]);
 
   let tasksForTodoList = props.tasks;
 
