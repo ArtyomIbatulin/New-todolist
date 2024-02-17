@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC } from "react";
+import React, { ChangeEvent, FC, useCallback } from "react";
 import { EditableSpan } from "./EditableSpan";
 import { TaskType } from "./Todolist";
 
@@ -11,17 +11,26 @@ export type TaskPropsType = {
 };
 
 export const Task: FC<TaskPropsType> = React.memo((props) => {
-  const removeTask = () => props.removeTask(props.task.id, props.todolistId);
-  const onChangeCheckHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    props.changeStatus(
-      props.task.id,
-      e.currentTarget.checked,
-      props.todolistId
-    );
-  };
-  const onChangeTitleHandler = (newValue: string) => {
-    props.changeTitle(props.task.id, newValue, props.todolistId);
-  };
+  const removeTask = useCallback(
+    () => props.removeTask(props.task.id, props.todolistId),
+    [props]
+  );
+  const onChangeCheckHandler = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      props.changeStatus(
+        props.task.id,
+        e.currentTarget.checked,
+        props.todolistId
+      );
+    },
+    [props]
+  );
+  const onChangeTitleHandler = useCallback(
+    (newValue: string) => {
+      props.changeTitle(props.task.id, newValue, props.todolistId);
+    },
+    [props]
+  );
 
   return (
     <li key={props.task.id} className={props.task.isDone ? "is-done" : ""}>
