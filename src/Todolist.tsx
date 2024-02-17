@@ -1,7 +1,8 @@
-import React, { ChangeEvent, useCallback } from "react";
+import React, { useCallback } from "react";
 import { FilterTypeValues } from "./AppWithRedux";
 import { AddItemForm } from "./AddItemForm";
 import { EditableSpan } from "./EditableSpan";
+import { Task } from "./Task";
 
 export type TaskType = {
   id: string;
@@ -39,9 +40,9 @@ export const Todolist = React.memo((props: PropsType) => {
     [props]
   );
 
-  const removeTodolist = () => {
+  const removeTodolist = useCallback(() => {
     props.removeTodolist(props.id);
-  };
+  }, [props]);
 
   const onChangeFilterAllHandler = useCallback(() => {
     props.changeFilter("all", props.id);
@@ -75,27 +76,16 @@ export const Todolist = React.memo((props: PropsType) => {
       <AddItemForm addItem={addTask} />
 
       <ul>
-        {tasksForTodoList.map((t) => {
-          const removeTask = () => props.removeTask(t.id, props.id);
-          const onChangeCheckHandler = (e: ChangeEvent<HTMLInputElement>) => {
-            props.changeStatus(t.id, e.currentTarget.checked, props.id);
-          };
-          const onChangeTitleHandler = (newValue: string) => {
-            props.changeTitle(t.id, newValue, props.id);
-          };
-
-          return (
-            <li key={t.id} className={t.isDone ? "is-done" : ""}>
-              <input
-                type="checkbox"
-                checked={t.isDone}
-                onChange={onChangeCheckHandler}
-              />
-              <EditableSpan title={t.title} onChange={onChangeTitleHandler} />
-              <button onClick={removeTask}>x</button>
-            </li>
-          );
-        })}
+        {tasksForTodoList.map((t) => (
+          <Task
+            key={t.id}
+            task={t}
+            todolistId={props.id}
+            changeStatus={props.changeStatus}
+            changeTitle={props.changeTitle}
+            removeTask={props.removeTask}
+          />
+        ))}
       </ul>
       <div>
         <button
