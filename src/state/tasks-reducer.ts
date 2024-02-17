@@ -119,12 +119,9 @@ export const tasksReducer = (
       const stateCopy = { ...state };
 
       let tasks = stateCopy[action.todolistId];
-      let task = tasks.find((t) => t.id === action.id);
-      if (task) {
-        task.isDone = action.isDone;
-      }
-
-      stateCopy[action.todolistId] = [...tasks];
+      stateCopy[action.todolistId] = tasks.map((t) =>
+        t.id === action.id ? { ...t, isDone: action.isDone } : t
+      );
 
       return stateCopy;
     }
@@ -133,12 +130,9 @@ export const tasksReducer = (
       const stateCopy = { ...state };
 
       let tasks = stateCopy[action.todolistId];
-      let task = tasks.find((t) => t.id === action.id);
-      if (task) {
-        task.title = action.title;
-      }
-
-      stateCopy[action.todolistId] = [...tasks];
+      stateCopy[action.todolistId] = tasks.map((t) =>
+        t.id === action.id ? { ...t, title: action.title } : t
+      );
 
       return stateCopy;
     }
