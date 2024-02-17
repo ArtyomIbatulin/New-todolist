@@ -32,9 +32,12 @@ export const Todolist = React.memo((props: PropsType) => {
     [props]
   );
 
-  const changeTodolistTitle = (newValue: string) => {
-    props.changeTodolistTitle(newValue, props.id);
-  };
+  const changeTodolistTitle = useCallback(
+    (newValue: string) => {
+      props.changeTodolistTitle(newValue, props.id);
+    },
+    [props]
+  );
 
   const removeTodolist = () => {
     props.removeTodolist(props.id);
