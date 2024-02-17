@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { FilterTypeValues } from "./AppWithRedux";
 import { AddItemForm } from "./AddItemForm";
 import { EditableSpan } from "./EditableSpan";
@@ -24,37 +24,30 @@ type PropsType = {
   removeTodolist: (todolistId: string) => void;
 };
 
-export const Todolist = React.memo((props: PropsType) => {
+export const Todolist = (props: PropsType) => {
   console.log("Todolist");
-  const addTask = useCallback(
-    (title: string) => {
-      props.addTask(title, props.id);
-    },
-    [props]
-  );
+  const addTask = (title: string) => {
+    props.addTask(title, props.id);
+  };
 
-  const changeTodolistTitle = useCallback(
-    (newValue: string) => {
-      props.changeTodolistTitle(newValue, props.id);
-    },
-    [props]
-  );
-
-  const removeTodolist = useCallback(() => {
+  const changeTodolistTitle = (newValue: string) => {
+    props.changeTodolistTitle(newValue, props.id);
+  };
+  const removeTodolist = () => {
     props.removeTodolist(props.id);
-  }, [props]);
+  };
 
-  const onChangeFilterAllHandler = useCallback(() => {
+  const onChangeFilterAllHandler = () => {
     props.changeFilter("all", props.id);
-  }, [props]);
+  };
 
-  const onChangeFilterActiveHandler = useCallback(() => {
+  const onChangeFilterActiveHandler = () => {
     props.changeFilter("active", props.id);
-  }, [props]);
+  };
 
-  const onChangeFilterCompletedHandler = useCallback(() => {
+  const onChangeFilterCompletedHandler = () => {
     props.changeFilter("completed", props.id);
-  }, [props]);
+  };
 
   let tasksForTodoList = props.tasks;
 
@@ -109,4 +102,4 @@ export const Todolist = React.memo((props: PropsType) => {
       </div>
     </div>
   );
-});
+};

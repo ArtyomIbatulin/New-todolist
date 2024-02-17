@@ -1,31 +1,28 @@
-import React, { ChangeEvent, useCallback, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 
 type EditableSpanPropsType = {
   title: string;
   onChange: (title: string) => void;
 };
 
-export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
+export const EditableSpan = (props: EditableSpanPropsType) => {
   console.log("EditableSpan");
   const [editMode, setEditMode] = useState(false);
   const [title, setTitle] = useState("");
 
-  const onChangeTitleHandler = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      setTitle(e.currentTarget.value);
-    },
-    []
-  );
+  const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.currentTarget.value);
+  };
 
-  const activateViewMode = useCallback(() => {
+  const activateViewMode = () => {
     setEditMode(false);
     props.onChange(title);
-  }, [props, title]);
+  };
 
-  const activateEditMode = useCallback(() => {
+  const activateEditMode = () => {
     setEditMode(true);
     setTitle(props.title);
-  }, [props.title]);
+  };
 
   return editMode ? (
     <input
@@ -37,4 +34,4 @@ export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
   ) : (
     <span onDoubleClick={activateEditMode}>{props.title}</span>
   );
-});
+};

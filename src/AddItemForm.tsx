@@ -1,48 +1,35 @@
-import React, {
-  ChangeEvent,
-  KeyboardEvent,
-  useCallback,
-  useState,
-} from "react";
+import React, { ChangeEvent, KeyboardEvent, useState } from "react";
 
 type AddItemFormProps = {
   addItem: (title: string) => void;
 };
 
-export const AddItemForm = React.memo((props: AddItemFormProps) => {
+export const AddItemForm = (props: AddItemFormProps) => {
   console.log("AddItemForm");
   const [title, setTitle] = useState("");
   const [error, setError] = useState<string | null>(null);
 
-  const onTitleChangeHandler = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      setTitle(e.currentTarget.value);
-    },
-    []
-  );
-
-  const addTask = useCallback(() => {
+  const onTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.currentTarget.value);
+  };
+  const addTask = () => {
     if (title !== "") {
       props.addItem(title.trim());
       setTitle("");
     } else {
       setError("Title is required");
     }
-  }, [props, title]);
+  };
 
-  const onKeyUpHandler = useCallback(
-    (e: KeyboardEvent<HTMLInputElement>) => {
-      if (error !== null) {
-        setError(null);
-      }
+  const onKeyUpHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (error !== null) {
+      setError(null);
+    }
 
-      if (e.keyCode === 13) {
-        addTask();
-      }
-    },
-    [error, addTask]
-  );
-
+    if (e.keyCode === 13) {
+      addTask();
+    }
+  };
   return (
     <div>
       <input
@@ -55,4 +42,4 @@ export const AddItemForm = React.memo((props: AddItemFormProps) => {
       {error && <div className="error-message">{error}</div>}
     </div>
   );
-});
+};
