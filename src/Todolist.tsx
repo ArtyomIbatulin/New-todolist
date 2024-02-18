@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { FilterTypeValues } from "./AppWithRedux";
 import { AddItemForm } from "./AddItemForm";
 import { EditableSpan } from "./EditableSpan";
@@ -26,9 +26,10 @@ type PropsType = {
 
 export const Todolist = (props: PropsType) => {
   console.log("Todolist");
-  const addTask = (title: string) => {
+  const addTask = useCallback((title: string) => {
     props.addTask(title, props.id);
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const changeTodolistTitle = (newValue: string) => {
     props.changeTodolistTitle(newValue, props.id);
@@ -49,15 +50,15 @@ export const Todolist = (props: PropsType) => {
     props.changeFilter("completed", props.id);
   };
 
-  let tasksForTodoList = props.tasks;
+  // let tasksForTodoList = props.tasks;
 
-  if (props.filter === "completed") {
-    tasksForTodoList = props.tasks.filter((t) => t.isDone === true);
-  }
+  // if (props.filter === "completed") {
+  //   tasksForTodoList = props.tasks.filter((t) => t.isDone === true);
+  // }
 
-  if (props.filter === "active") {
-    tasksForTodoList = props.tasks.filter((t) => t.isDone === false);
-  }
+  // if (props.filter === "active") {
+  //   tasksForTodoList = props.tasks.filter((t) => t.isDone === false);
+  // }
 
   return (
     <div>
@@ -69,7 +70,7 @@ export const Todolist = (props: PropsType) => {
       <AddItemForm addItem={addTask} />
 
       <ul>
-        {tasksForTodoList.map((t) => (
+        {props.tasks.map((t) => (
           <Task
             key={t.id}
             task={t}

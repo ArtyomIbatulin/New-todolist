@@ -3,6 +3,7 @@ import reportWebVitals from "./reportWebVitals";
 import AppWithRedux from "./AppWithRedux";
 import { Provider } from "react-redux";
 import { store } from "./state/store";
+import React from "react";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -20,5 +21,4 @@ reportWebVitals();
 
 // Filters ?
 // EditableSpan лишние перерисовки
-// везде useCallback
 // mui
