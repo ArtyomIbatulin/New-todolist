@@ -3,8 +3,8 @@ import { TasksStateType } from "../AppWithRedux";
 import {
   AddTodolistActionType,
   RemoveTodolistActionType,
-  todolistId1,
-  todolistId2,
+  // todolistId1,
+  // todolistId2,
 } from "./todolists-reducer";
 
 type RemoveTaskActionType = {
@@ -42,51 +42,50 @@ type ActionsType =
   | RemoveTodolistActionType;
 
 const initialState: TasksStateType = {
-  [todolistId1]: [
-    {
-      id: v1(),
-      title: "HTML&CSS",
-      isDone: true,
-    },
-    {
-      id: v1(),
-      title: "JS",
-      isDone: true,
-    },
-    {
-      id: v1(),
-      title: "React",
-      isDone: false,
-    },
-    {
-      id: v1(),
-      title: "Redux",
-      isDone: false,
-    },
-  ],
-
-  [todolistId2]: [
-    {
-      id: v1(),
-      title: "Car",
-      isDone: true,
-    },
-    {
-      id: v1(),
-      title: "Ship",
-      isDone: true,
-    },
-    {
-      id: v1(),
-      title: "Plane",
-      isDone: false,
-    },
-    {
-      id: v1(),
-      title: "Train",
-      isDone: false,
-    },
-  ],
+  // [todolistId1]: [
+  //   {
+  //     id: v1(),
+  //     title: "HTML&CSS",
+  //     isDone: true,
+  //   },
+  //   {
+  //     id: v1(),
+  //     title: "JS",
+  //     isDone: true,
+  //   },
+  //   {
+  //     id: v1(),
+  //     title: "React",
+  //     isDone: false,
+  //   },
+  //   {
+  //     id: v1(),
+  //     title: "Redux",
+  //     isDone: false,
+  //   },
+  // ],
+  // [todolistId2]: [
+  //   {
+  //     id: v1(),
+  //     title: "Car",
+  //     isDone: true,
+  //   },
+  //   {
+  //     id: v1(),
+  //     title: "Ship",
+  //     isDone: true,
+  //   },
+  //   {
+  //     id: v1(),
+  //     title: "Plane",
+  //     isDone: false,
+  //   },
+  //   {
+  //     id: v1(),
+  //     title: "Train",
+  //     isDone: false,
+  //   },
+  // ]
 };
 
 export const tasksReducer = (
