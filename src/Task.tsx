@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC } from "react";
+import React, { ChangeEvent, FC, useCallback } from "react";
 import { EditableSpan } from "./EditableSpan";
 import { TaskType } from "./Todolist";
 
@@ -10,8 +10,12 @@ export type TaskPropsType = {
   changeTitle: (taskId: string, newValue: string, todolistId: string) => void;
 };
 
-export const Task: FC<TaskPropsType> = (props) => {
-  const removeTask = () => props.removeTask(props.task.id, props.todolistId);
+export const Task: FC<TaskPropsType> = React.memo((props) => {
+  const removeTask = useCallback(
+    () => props.removeTask(props.task.id, props.todolistId),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
   const onChangeCheckHandler = (e: ChangeEvent<HTMLInputElement>) => {
     props.changeStatus(
@@ -20,9 +24,11 @@ export const Task: FC<TaskPropsType> = (props) => {
       props.todolistId
     );
   };
-  const onChangeTitleHandler = (newValue: string) => {
+
+  const onChangeTitleHandler = useCallback((newValue: string) => {
     props.changeTitle(props.task.id, newValue, props.todolistId);
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <li key={props.task.id} className={props.task.isDone ? "is-done" : ""}>
@@ -35,4 +41,4 @@ export const Task: FC<TaskPropsType> = (props) => {
       <button onClick={removeTask}>x</button>
     </li>
   );
-};
+});

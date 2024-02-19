@@ -24,41 +24,48 @@ type PropsType = {
   removeTodolist: (todolistId: string) => void;
 };
 
-export const Todolist = (props: PropsType) => {
+export const Todolist = React.memo((props: PropsType) => {
   console.log("Todolist");
-  const addTask = useCallback((title: string) => {
-    props.addTask(title, props.id);
+  const addTask = useCallback(
+    (title: string) => {
+      props.addTask(title, props.id);
+    }, // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
+  const changeTodolistTitle = useCallback((newValue: string) => {
+    props.changeTodolistTitle(newValue, props.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const changeTodolistTitle = (newValue: string) => {
-    props.changeTodolistTitle(newValue, props.id);
-  };
   const removeTodolist = () => {
     props.removeTodolist(props.id);
   };
 
-  const onChangeFilterAllHandler = () => {
+  const onChangeFilterAllHandler = useCallback(() => {
     props.changeFilter("all", props.id);
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const onChangeFilterActiveHandler = () => {
+  const onChangeFilterActiveHandler = useCallback(() => {
     props.changeFilter("active", props.id);
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const onChangeFilterCompletedHandler = () => {
+  const onChangeFilterCompletedHandler = useCallback(() => {
     props.changeFilter("completed", props.id);
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  // let tasksForTodoList = props.tasks;
+  let tasksForTodoList = props.tasks;
 
-  // if (props.filter === "completed") {
-  //   tasksForTodoList = props.tasks.filter((t) => t.isDone === true);
-  // }
+  if (props.filter === "completed") {
+    tasksForTodoList = props.tasks.filter((t) => t.isDone === true);
+  }
 
-  // if (props.filter === "active") {
-  //   tasksForTodoList = props.tasks.filter((t) => t.isDone === false);
-  // }
+  if (props.filter === "active") {
+    tasksForTodoList = props.tasks.filter((t) => t.isDone === false);
+  }
 
   return (
     <div>
@@ -70,7 +77,7 @@ export const Todolist = (props: PropsType) => {
       <AddItemForm addItem={addTask} />
 
       <ul>
-        {props.tasks.map((t) => (
+        {tasksForTodoList.map((t) => (
           <Task
             key={t.id}
             task={t}
@@ -103,4 +110,4 @@ export const Todolist = (props: PropsType) => {
       </div>
     </div>
   );
-};
+});
