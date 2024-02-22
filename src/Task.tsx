@@ -1,9 +1,9 @@
 import React, { ChangeEvent, FC, useCallback } from "react";
 import { EditableSpan } from "./EditableSpan";
 import { TaskType } from "./Todolist";
-import Button from "@mui/material/Button";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Checkbox from "@mui/material/Checkbox";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export type TaskPropsType = {
   task: TaskType;
@@ -36,18 +36,16 @@ export const Task: FC<TaskPropsType> = React.memo((props) => {
   return (
     <li key={props.task.id} className={props.task.isDone ? "is-done" : ""}>
       <Checkbox
+        color="secondary"
         defaultChecked
         checked={props.task.isDone}
         onChange={onChangeCheckHandler}
       />
       <EditableSpan title={props.task.title} onChange={onChangeTitleHandler} />
-      <Button
-        variant="outlined"
-        startIcon={<DeleteIcon />}
-        onClick={removeTask}
-      >
-        Delete
-      </Button>
+
+      <IconButton aria-label="delete" onClick={removeTask}>
+        <DeleteIcon />
+      </IconButton>
     </li>
   );
 });

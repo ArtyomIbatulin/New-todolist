@@ -1,4 +1,3 @@
-import "./App.css";
 import { TaskType, Todolist } from "./Todolist";
 import { AddItemForm } from "./AddItemForm";
 import {
@@ -31,7 +30,6 @@ export type TasksStateType = {
 };
 
 const AppWithRedux = () => {
-  console.log("App");
   const dispatch = useDispatch();
 
   const todolists = useSelector<AppRootState, Array<TodolistType>>(

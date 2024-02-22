@@ -1,11 +1,14 @@
 import React, { ChangeEvent, KeyboardEvent, useState } from "react";
+import TextField from "@mui/material/TextField";
+import { IconButton } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import Stack from "@mui/material/Stack";
 
 type AddItemFormProps = {
   addItem: (title: string) => void;
 };
 
 export const AddItemForm = React.memo((props: AddItemFormProps) => {
-  console.log("AddItemForm");
   const [title, setTitle] = useState("");
   const [error, setError] = useState<string | null>(null);
 
@@ -32,14 +35,20 @@ export const AddItemForm = React.memo((props: AddItemFormProps) => {
   };
   return (
     <div>
-      <input
-        value={title}
-        onChange={onTitleChangeHandler}
-        onKeyUp={onKeyUpHandler}
-        className={error ? "error" : ""}
-      />
-      <button onClick={addTask}>+</button>
-      {error && <div className="error-message">{error}</div>}
+      <Stack direction="row">
+        <TextField
+          label="Type title..."
+          variant="outlined"
+          value={title}
+          onChange={onTitleChangeHandler}
+          onKeyUp={onKeyUpHandler}
+          error={!!error}
+          helperText={error}
+        />
+        <IconButton onClick={addTask}>
+          <AddIcon />
+        </IconButton>
+      </Stack>
     </div>
   );
 });
