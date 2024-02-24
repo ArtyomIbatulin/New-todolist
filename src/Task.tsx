@@ -34,7 +34,7 @@ export const Task: FC<TaskPropsType> = React.memo((props) => {
   }, []);
 
   return (
-    <li key={props.task.id} className={props.task.isDone ? "is-done" : ""}>
+    <li key={props.task.id}>
       <Checkbox
         color="secondary"
         checked={props.task.isDone}

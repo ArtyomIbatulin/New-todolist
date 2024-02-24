@@ -16,6 +16,9 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { AppRootState } from "./state/store";
 import React, { useCallback } from "react";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
 
 export type FilterTypeValues = "all" | "completed" | "active";
 
@@ -96,29 +99,39 @@ const AppWithRedux = () => {
 
   return (
     <div className="App">
-      <AddItemForm addItem={addTodolist} />
+      <Container fixed>
+        <Grid container sx={{ paddingBottom: "20px" }}>
+          <AddItemForm addItem={addTodolist} />
+        </Grid>
 
-      {todolists.map((tl) => {
-        let allTodolistTasks = tasks[tl.id];
-        let tasksForTodoList = allTodolistTasks;
+        <Grid container spacing={3}>
+          {todolists.map((tl) => {
+            let allTodolistTasks = tasks[tl.id];
+            let tasksForTodoList = allTodolistTasks;
 
-        return (
-          <Todolist
-            key={tl.id}
-            id={tl.id}
-            title={tl.title}
-            filter={tl.filter}
-            tasks={tasksForTodoList}
-            removeTask={removeTask}
-            changeFilter={changeFilter}
-            changeTodolistTitle={changeTodolistTitle}
-            addTask={addTask}
-            changeStatus={changeStatus}
-            removeTodolist={removeTodolist}
-            changeTitle={changeTitle}
-          />
-        );
-      })}
+            return (
+              <Grid item key={tl.id}>
+                <Paper sx={{ padding: "5px" }} elevation={3}>
+                  <Todolist
+                    key={tl.id}
+                    id={tl.id}
+                    title={tl.title}
+                    filter={tl.filter}
+                    tasks={tasksForTodoList}
+                    removeTask={removeTask}
+                    changeFilter={changeFilter}
+                    changeTodolistTitle={changeTodolistTitle}
+                    addTask={addTask}
+                    changeStatus={changeStatus}
+                    removeTodolist={removeTodolist}
+                    changeTitle={changeTitle}
+                  />
+                </Paper>
+              </Grid>
+            );
+          })}
+        </Grid>
+      </Container>
     </div>
   );
 };
