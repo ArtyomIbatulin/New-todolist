@@ -37,7 +37,7 @@ export const AddItemForm = React.memo((props: AddItemFormProps) => {
     <div>
       <Stack direction="row">
         <TextField
-          label="Type title..."
+          label="Введите название..."
           variant="outlined"
           value={title}
           onChange={onTitleChangeHandler}
